@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 class TableTableViewController: UITableViewController {
 
-    var toDoItems: [String] = []
+    var toDoItems: [Task] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,8 +40,7 @@ class TableTableViewController: UITableViewController {
         let ok = UIAlertAction(title: "Ok", style: .default) { action in
             let textField = ac.textFields?[0]
             guard let text = textField?.text else {return}
-            self.toDoItems.insert(text, at: 0)
-            print(self.toDoItems)
+            self.saveTask(taskToDo: text)
             self.tableView.reloadData()
         }
         let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
@@ -55,11 +55,25 @@ class TableTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-
-        cell.textLabel?.text = toDoItems[indexPath.row]
+        let task = toDoItems[indexPath.row]
+        cell.textLabel?.text = task.taskToDo
         return cell
     }
     
+    func saveTask(taskToDo: String) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        guard let entity = NSEntityDescription.entity(forEntityName: "Task", in: context) else { return }
+        guard let taskObject = NSManagedObject(entity: entity, insertInto: context) as? Task else { return }
+        taskObject.taskToDo = taskToDo
+        do {
+            try context.save()
+            toDoItems.append(taskObject)
+            print("Saved")
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.
