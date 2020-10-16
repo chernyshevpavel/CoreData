@@ -17,6 +17,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D928A2F25396C440012B61F /* Car+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Car+CoreDataProperties.h"; sourceTree = "<group>"; };
+		1D928A3025396C440012B61F /* Car+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Car+CoreDataClass.h"; sourceTree = "<group>"; };
+		1D928A3125396C440012B61F /* Car+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Car+CoreDataClass.m"; sourceTree = "<group>"; };
+		1D928A3225396C440012B61F /* Car+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Car+CoreDataProperties.m"; sourceTree = "<group>"; };
 		359705A01C08159E00D13FE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		359705A21C08159E00D13FE9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		359705A51C08159E00D13FE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -42,6 +46,10 @@
 		359705941C08159E00D13FE9 = {
 			isa = PBXGroup;
 			children = (
+				1D928A2F25396C440012B61F /* Car+CoreDataProperties.h */,
+				1D928A3025396C440012B61F /* Car+CoreDataClass.h */,
+				1D928A3125396C440012B61F /* Car+CoreDataClass.m */,
+				1D928A3225396C440012B61F /* Car+CoreDataProperties.m */,
 				3597059F1C08159E00D13FE9 /* MyCars */,
 				3597059E1C08159E00D13FE9 /* Products */,
 			);
@@ -103,7 +111,7 @@
 					35F2F4DE1C084725000E1CB3 = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = 5H969S6YFE;
-						LastSwiftMigration = 1020;
+						LastSwiftMigration = 1200;
 					};
 				};
 			};
@@ -280,11 +288,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 5H969S6YFE;
 				INFOPLIST_FILE = MyCars/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.swiftbook.MyCars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -293,6 +303,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 5H969S6YFE;
 				INFOPLIST_FILE = MyCars/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
