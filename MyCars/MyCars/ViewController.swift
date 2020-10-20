@@ -34,6 +34,56 @@ class ViewController: UIViewController {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
+    
+func getDataFromFile() {
+  let fetchRequest: NSFetchRequest<Car> = Car.fetchRequest()
+  fetchRequest.predicate = NSPredicate(format: "mark != nil")
+  
+  var records = 0
+  
+  do {
+    let count = try context.count(for: fetchRequest)
+    records = count
+    print("Data is there already?")
+  } catch {
+    print(error.localizedDescription)
+  }
+  
+  guard records == 0 else { return }
+  
+  let pathToFile = Bundle.main.path(forResource: "data", ofType: "plist")
+  let dataArray = NSArray(contentsOfFile: pathToFile!)!
+  
+  for dictionary in dataArray {
+    let entity = NSEntityDescription.entity(forEntityName: "Car", in: context)
+    let car = NSManagedObject(entity: entity!, insertInto: context) as! Car
+    
+    let carDictionary = dictionary as! NSDictionary
+    car.mark = carDictionary["mark"] as? String
+    car.model = carDictionary["model"] as? String
+    car.rating = carDictionary["rating"] as? NSNumber
+    car.lastStarted = carDictionary["lastStarted"] as? Date
+    car.timesDriven = carDictionary["timesDriven"] as? NSNumber
+    car.myChoice = carDictionary["myChoice"] as? NSNumber
+    
+    let imageName = carDictionary["imageName"] as? String
+    let image = UIImage(named: imageName!)
+    let imageData = image!.pngData()
+    car.imageData = imageData as Data?
+    
+    let colorDictionary = carDictionary["tintColor"] as? NSDictionary
+    car.tintColor = getColor(colorDictionary: colorDictionary!)
+    
+  }
+}
+
+func getColor(colorDictionary: NSDictionary) -> UIColor {
+  let red = colorDictionary["red"] as! NSNumber
+  let green = colorDictionary["green"] as! NSNumber
+  let blue = colorDictionary["blue"] as! NSNumber
+  
+  return UIColor(red: CGFloat(red.floatValue) / 255, green: CGFloat(green.floatValue) / 255, blue: CGFloat(blue.floatValue) / 255, alpha: 1.0)
+}
   
   
   @IBAction func segmentedCtrlPressed(_ sender: UISegmentedControl) {
